@@ -4,11 +4,11 @@ git_root=`git rev-parse --show-toplevel`
 readme="${git_root}/README.md"
 
 if [ -f $readme ]; then
-	grep -q "# Terraform Docs" $readme || echo >> $readme
-	awk '/# Terraform Docs/{exit}1' $readme > tmp && mv tmp $readme
-	echo "# Terraform Docs\n" >> $readme
+  grep -q "# Terraform Docs" $readme || echo >> $readme
+  awk '/# Terraform Docs/{exit}1' $readme > tmp && mv tmp $readme
+  echo "# Terraform Docs\n" >> $readme
 else
-	echo "# Terraform Docs\n" > $readme
+  echo "# Terraform Docs\n" > $readme
 fi
 
 terraform-docs markdown $git_root >> $readme
