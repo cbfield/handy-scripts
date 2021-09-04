@@ -1,12 +1,15 @@
 #!/bin/zsh
 
-if [ -f README.md ]; then
-	grep -q "# Terraform Docs" README.md || echo >> README.md
-	awk '/# Terraform Docs/{exit}1' README.md > tmp && mv tmp README.md
-	echo "# Terraform Docs\n" >> README.md
+git_root=`git rev-parse --show-toplevel`
+readme="${git_root}/README.md"
+
+if [ -f $readme ]; then
+	grep -q "# Terraform Docs" $readme || echo >> $readme
+	awk '/# Terraform Docs/{exit}1' $readme > tmp && mv tmp $readme
+	echo "# Terraform Docs\n" >> $readme
 else
-	echo "# Terraform Docs\n" > README.md
+	echo "# Terraform Docs\n" > $readme
 fi
 
-terraform-docs markdown . >> README.md
+terraform-docs markdown $git_root >> $readme
 
