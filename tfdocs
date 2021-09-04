@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+if [ -f README.md ]; then
+	grep -q "# Terraform Docs" README.md || echo >> README.md
+	awk '/# Terraform Docs/{exit}1' README.md > tmp && mv tmp README.md
+	echo "# Terraform Docs\n" >> README.md
+else
+	echo "# Terraform Docs\n" > README.md
+fi
+
+terraform-docs markdown . >> README.md
+

@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+[[ -z $1 ]] && echo "Enter a commit message" && return
+
+git_root=`git rev-parse --show-toplevel`
+git_branch=`git branch --show-current`
+
+git -C $git_root add .
+git -C $git_root commit -m $1
+git -C $git_root push origin $git_branch
+
